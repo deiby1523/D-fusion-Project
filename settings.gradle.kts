@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Proyecto"
+rootProject.name = "D-fusion-Project"
 include(":app")
