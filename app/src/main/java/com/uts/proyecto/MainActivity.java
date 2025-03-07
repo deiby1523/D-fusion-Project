@@ -45,10 +45,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         introPref = new IntroPref(this);
-        introPref.setIsFirstTimeLaunch(false);
+
+        // Verificar si es la primera vez que se abre
         if (introPref.isFirstTimeLaunch()) {
+            // Es la primera vez, NO hacemos nada, solo mostramos el tutorial
+        } else {
+            // No es la primera vez, redirigir al login
             launchLoginScreen();
-            finish();
         }
 
         tvNext = findViewById(R.id.tvNext);
@@ -68,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 if (current < layouts.length) {
                     viewPager.setCurrentItem(current);
                 } else {
+                    // Establecer que ya no es la primera vez antes de lanzar el Login
+                    introPref.setIsFirstTimeLaunch(false);
                     launchLoginScreen();
                 }
             }
@@ -161,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void launchLoginScreen() {
-        introPref.setIsFirstTimeLaunch(false);
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
         finish();
     }

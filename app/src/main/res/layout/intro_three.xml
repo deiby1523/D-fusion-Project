@@ -33,7 +33,7 @@
             android:fontFamily="@font/inter"
             android:gravity="center"
             android:text="Toma notas rápidamente"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="@color/purple"
             android:textSize="25sp"
             android:textStyle="bold" />
 

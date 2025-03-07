@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFF</color>
 
-    <color name="card">#FFFFFFFF</color>
-    <color name="GoogleBtnText">#585858</color>
+    <color name="card">#242424</color>
+    <color name="GoogleBtnText">#FFFFFF</color>
 
     <color name="IngresarBtnText">#FFFFFF</color>
-
-
-
 
     <!-- dots inactive color-->
     <color name="dark_one">#dcdcdc</color>
