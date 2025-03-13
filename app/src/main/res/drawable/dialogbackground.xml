@@ -3,7 +3,7 @@
 
 
     <solid
-        android:color="@color/white"/>
+        android:color="@color/card"/>
     <corners
         android:topLeftRadius="40dp"
         android:topRightRadius="40dp"/>
@@ -12,8 +12,5 @@
         android:right="10dp"
         android:top="10dp"
         android:bottom="10dp"/>
-    <stroke
-        android:width="2dp"
-        android:color="#20000000"/>
 
 </shape>

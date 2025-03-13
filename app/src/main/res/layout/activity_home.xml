@@ -38,8 +38,7 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:itemIconTint="@color/purple"
-        app:itemTextColor="@color/black"
-        app:menu="@menu/nav_menu"/>
+        app:menu="@menu/nav_menu" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
