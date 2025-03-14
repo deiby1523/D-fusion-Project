@@ -52,5 +52,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        var recoveryText = findViewById(R.id.recoveryText);
+        recoveryText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RecoverPasswordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 }

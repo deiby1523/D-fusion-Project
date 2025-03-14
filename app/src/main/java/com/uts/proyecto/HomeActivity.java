@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -28,12 +30,12 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener {
 
     FloatingActionButton fab;
     DrawerLayout drawerLayout;
     BottomNavigationView bottomNavigationView;
-
 
 
     @Override
@@ -49,14 +51,19 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open_nav,R.string.close_nav);
+        ActionBarDrawerToggle toogle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toogle);
         toogle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new HomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
 
+
+        }
+
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
         }
 
 
@@ -86,19 +93,22 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-//        FIXME: Revisar la funcionalidad de los botones del menu
-//        var btnLogout = navigationView.findViewById(R.id.nav_logout);
-//        btnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+
     }
 
-    private  void replaceFragment(Fragment fragment) {
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.nav_logout) {
+            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+
+        return false;
+    }
+
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
@@ -120,7 +130,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-                Toast.makeText(HomeActivity.this,"Evento para Elemento 1",Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "Evento para Elemento 1", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -130,7 +140,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-                Toast.makeText(HomeActivity.this,"Evento para Elemento 2",Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "Evento para Elemento 2", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -140,7 +150,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-                Toast.makeText(HomeActivity.this,"Evento para Elemento 3",Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "Evento para Elemento 3", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -153,7 +163,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         dialog.show();
-        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
