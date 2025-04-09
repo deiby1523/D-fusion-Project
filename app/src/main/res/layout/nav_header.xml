@@ -18,6 +18,7 @@
         android:src="@drawable/example3" />
 
     <TextView
+        android:id="@+id/nav_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Deiby Prada"
@@ -26,11 +27,12 @@
         android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/nav_userEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dfabianprada@uts.edu.co"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:layout_marginBottom="16dp"/>
+<!--    android:text="dfabianprada@uts.edu.co"-->
 
 </LinearLayout>

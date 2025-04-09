@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "876812359941",
+    "project_id": "d-fusion-55036",
+    "storage_bucket": "d-fusion-55036.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876812359941:android:2aae439cbd55b3f76a7f6c",
+        "android_client_info": {
+          "package_name": "com.uts.proyecto"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs6sEs9VU0w0RqlqnTPTa_ulIPHRDqVgE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
