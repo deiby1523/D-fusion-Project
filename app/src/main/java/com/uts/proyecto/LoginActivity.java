@@ -2,8 +2,11 @@ package com.uts.proyecto;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,24 +23,25 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-    FirebaseAuth auth;
-    EditText textEmail, textPassword;
-    Button signInButton;
-    Button signInGoogleButton;
-    TextView signUpLink;
-    TextView recoveryLink;
+
+    // Firebase Authentication instance
+    private FirebaseAuth auth;
+
+    // UI Components
+    private EditText textEmail, textPassword;
+    private Button signInButton, signInGoogleButton;
+    private TextView signUpLink, recoveryLink;
 
     @Override
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
         auth = FirebaseAuth.getInstance();
+
+        // Check if user is already signed in
         FirebaseUser user = auth.getCurrentUser();
-        // Check if user is signed in (non-null)
-        if(user != null){
-            // User already signed in
-            // redirecting to HomeActivity
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
+        if (user != null) {
+            // Redirect to HomeActivity
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             finish();
         }
     }
@@ -48,7 +52,10 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
+        // Initialize FirebaseAuth instance
         auth = FirebaseAuth.getInstance();
+
+        // Initialize UI components
         textEmail = findViewById(R.id.textEmail);
         textPassword = findViewById(R.id.textPassword);
         signInButton = findViewById(R.id.signInButton);
@@ -56,73 +63,78 @@ public class LoginActivity extends AppCompatActivity {
         signUpLink = findViewById(R.id.signUpLink);
         recoveryLink = findViewById(R.id.recoveryLink);
 
-
+        // Sign in with email and password
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email, password;
-                email = String.valueOf(textEmail.getText());
-                password = String.valueOf(textPassword.getText());
+                hideKeyboard(v);
 
+                String email = textEmail.getText().toString();
+                String password = textPassword.getText().toString();
+
+                // Validate input fields
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(LoginActivity.this, "Ingresa un Email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Please enter an email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity.this, "Ingresa una contraseña", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Please enter a password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                auth.signInWithEmailAndPassword(email,password)
+                // Attempt sign in
+                auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success
-                                    // Create an intent to HomeActivity
-                                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-                                    startActivity(intent);
-                                    finish(); // Optional, to close LoginActivity and prevent return action
+                                    // Redirect to HomeActivity on success
+                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                    finish();
                                 } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(LoginActivity.this, "Autenticación fallida",
-                                            Toast.LENGTH_SHORT).show();
+                                    // Show error message
+                                    Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-
             }
         });
 
+        // Google Sign-In placeholder
         signInGoogleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Crear un intent para ir a HomeActivity
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(intent);
-                finish(); // Opcional, para cerrar la LoginActivity y evitar que vuelva al presionar "atrás"
+                // Redirect to HomeActivity (replace with actual Google Sign-In logic if needed)
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                finish();
             }
         });
 
-
+        // Redirect to SignUpActivity
         signUpLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
                 finish();
             }
         });
 
+        // Redirect to RecoverPasswordActivity
         recoveryLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RecoverPasswordActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(LoginActivity.this, RecoverPasswordActivity.class));
                 finish();
             }
         });
+    }
 
+    // Hides the keyboard when user interacts with the screen
+    public void hideKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }
