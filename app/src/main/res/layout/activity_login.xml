@@ -39,21 +39,21 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/textEmail"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/custom_edittext"
-                android:drawableLeft="@drawable/baseline_person_24"
+                android:drawableLeft="@drawable/baseline_email_24"
                 android:drawablePadding="8dp"
                 android:fontFamily="@font/inter"
-                android:hint="Ingrese su usuario"
+                android:hint="Ingrese su email"
                 android:paddingLeft="20dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
@@ -79,7 +79,7 @@
                 android:textSize="18sp" />
 
             <Button
-                android:id="@+id/LoginButton"
+                android:id="@+id/submitButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
@@ -126,7 +126,7 @@
         android:text="¿No tienes una cuenta? Regístrate"
         android:textAlignment="center"
         android:textColor="@color/purple"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
 
 </LinearLayout>
