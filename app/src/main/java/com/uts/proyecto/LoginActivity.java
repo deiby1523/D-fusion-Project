@@ -8,7 +8,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -21,15 +20,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-
 public class LoginActivity extends AppCompatActivity {
-
     private static final int RC_SIGN_IN = 123;
     // Firebase Authentication instance
     private FirebaseAuth mAuth;
@@ -38,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText textEmail, textPassword;
     private Button signInButton, signInGoogleButton;
     private TextView signUpLink, recoveryLink;
-
 
     @Override
     protected void onStart() {
@@ -65,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
 
         createRequest();
 
-
         // Initialize UI components
         textEmail = findViewById(R.id.textEmail);
         textPassword = findViewById(R.id.textPassword);
@@ -85,12 +81,18 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Validate input fields
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(LoginActivity.this, "Please enter an email", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v, "Ingresa un Email", Snackbar.LENGTH_SHORT)
+                            .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
+                            .setTextColor(getResources().getColor(R.color.black, getTheme()))
+                            .show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity.this, "Please enter a password", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v, "Ingresa una Contraseña", Snackbar.LENGTH_SHORT)
+                            .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
+                            .setTextColor(getResources().getColor(R.color.black, getTheme()))
+                            .show();
                     return;
                 }
 
@@ -104,7 +106,10 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                         } else {
                             // Show error message
-                            Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(v, "Error en autenticacion -> signInWithEmailAndPassword()", Snackbar.LENGTH_SHORT)
+                                    .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
+                                    .setTextColor(getResources().getColor(R.color.black, getTheme()))
+                                    .show();
                         }
                     }
                 });
@@ -158,10 +163,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void signIn() {
-
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -174,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
             handleSignInResult(task);
         }
     }
+
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
@@ -182,10 +184,14 @@ public class LoginActivity extends AppCompatActivity {
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Toast.makeText(LoginActivity.this, "Error en handleSignInResult", Toast.LENGTH_SHORT).show();
+            Snackbar.make(findViewById(R.id.signInGoogleButton), "Error en -> handleSignInResult()", Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
+                    .setTextColor(getResources().getColor(R.color.black, getTheme()))
+                    .show();
             // Actualiza la UI para indicar un fallo
         }
     }
+
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, task -> {
@@ -196,7 +202,10 @@ public class LoginActivity extends AppCompatActivity {
                 // Actualiza la UI con la información del usuario
             } else {
                 // If sign in fails, display a message to the user.
-                Toast.makeText(LoginActivity.this, "Error en firebaseAuthWithGoogle", Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.signInGoogleButton), "Error en -> firebaseAuthWithGoogle()", Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
+                        .setTextColor(getResources().getColor(R.color.black, getTheme()))
+                        .show();
                 // Muestra un mensaje de error
             }
         });

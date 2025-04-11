@@ -64,13 +64,18 @@ public class SignUpActivity extends AppCompatActivity {
                 password = String.valueOf(textPassword.getText());
 
                 if (TextUtils.isEmpty(email)) {
-//                    Toast.makeText(SignUpActivity.this, "Ingresa un Email", Toast.LENGTH_SHORT).show();
-                    Snackbar.make(v,"Ingresa un Email", Snackbar.LENGTH_SHORT).setBackgroundTint(getResources().getColor(R.color.danger, getTheme())).show();
+                    Snackbar.make(v,"Ingresa un Email", Snackbar.LENGTH_SHORT)
+                            .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
+                            .setTextColor(getResources().getColor(R.color.black, getTheme()))
+                            .show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(SignUpActivity.this, "Ingresa una contraseña", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v,"Ingresa una Contraseña", Snackbar.LENGTH_SHORT)
+                            .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
+                            .setTextColor(getResources().getColor(R.color.black, getTheme()))
+                            .show();
                     return;
                 }
 
@@ -81,10 +86,19 @@ public class SignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             // FirebaseUser user = auth.getCurrentUser();
-                            Toast.makeText(SignUpActivity.this, "Usuario registrado", Toast.LENGTH_SHORT).show();
+//                            Snackbar.make(v,"Usuario Registrado", Snackbar.LENGTH_SHORT)
+//                                    .setBackgroundTint(getResources().getColor(R.color.success, getTheme()))
+//                                    .setTextColor(getResources().getColor(R.color.black, getTheme()))
+//                                    .show();
+                            // Redirect to HomeActivity on success
+                            startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(SignUpActivity.this, "Error de Autenticación", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(v,"Error de autenticacion", Snackbar.LENGTH_SHORT)
+                                    .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
+                                    .setTextColor(getResources().getColor(R.color.black, getTheme()))
+                                    .show();
                         }
                     }
                 });
