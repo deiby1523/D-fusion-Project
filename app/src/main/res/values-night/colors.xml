@@ -13,6 +13,7 @@
     <color name="dark_two">#dcdcdc</color>
     <color name="dark_three">#dcdcdc</color>
     <color name="purple">#6C63FF</color>
+    <color name="danger">#FF6363</color>
 
     <!-- dots active color-->
     <color name="orange_one">#6C63FF</color>

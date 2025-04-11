@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -63,7 +64,8 @@ public class SignUpActivity extends AppCompatActivity {
                 password = String.valueOf(textPassword.getText());
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(SignUpActivity.this, "Ingresa un Email", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(SignUpActivity.this, "Ingresa un Email", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v,"Ingresa un Email", Snackbar.LENGTH_SHORT).setBackgroundTint(getResources().getColor(R.color.danger, getTheme())).show();
                     return;
                 }
 
