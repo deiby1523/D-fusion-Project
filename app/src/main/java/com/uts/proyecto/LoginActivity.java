@@ -188,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
                     .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
                     .setTextColor(getResources().getColor(R.color.black, getTheme()))
                     .show();
-            // Actualiza la UI para indicar un fallo
+
         }
     }
 
@@ -199,14 +199,13 @@ public class LoginActivity extends AppCompatActivity {
                 // Sign in success, update UI with the signed-in user's information
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 finish();
-                // Actualiza la UI con la información del usuario
             } else {
                 // If sign in fails, display a message to the user.
+                // Muestra un mensaje de error
                 Snackbar.make(findViewById(R.id.signInGoogleButton), "Error en -> firebaseAuthWithGoogle()", Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
                         .setTextColor(getResources().getColor(R.color.black, getTheme()))
                         .show();
-                // Muestra un mensaje de error
             }
         });
     }
