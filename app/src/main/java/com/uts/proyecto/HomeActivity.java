@@ -1,17 +1,18 @@
 package com.uts.proyecto;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,16 +24,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,12 +54,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
+    private CircleImageView circleImageView;
     private TextView navUserEmail;
+    private TextView navUserName;
     private View headerView;
 
     // Firebase
     private FirebaseAuth auth;
     private FirebaseUser user;
+    DatabaseReference dbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +90,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private void initUI() {
         navigationView = findViewById(R.id.nav_view);
         headerView = navigationView.getHeaderView(0);
+        circleImageView = headerView.findViewById(R.id.circularImageView);
         navUserEmail = headerView.findViewById(R.id.nav_userEmail);
+        navUserName = headerView.findViewById(R.id.nav_userName);
+
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         fab = findViewById(R.id.fab);
@@ -96,6 +114,33 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
     }
 
+    private void syncUserData() {
+        String uid = user.getUid();
+        dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userData = snapshot.getValue(User.class);
+                if (userData != null) {
+                    navUserEmail.setText(user.getEmail());
+                    navUserName.setText(userData.getName());
+
+                    Picasso.get().load(Objects.requireNonNull(user.getPhotoUrl()).toString()).into(circleImageView);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Snackbar.make(findViewById(R.id.bottomAppBar), "Error en -> syncUserData()", Snackbar.LENGTH_SHORT)
+                        .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
+                        .setTextColor(getResources().getColor(R.color.black, getTheme()))
+                        .show();
+            }
+        });
+    }
+
     // ---------------------------
     // Autenticación
     // ---------------------------
@@ -106,7 +151,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             finish();
         } else {
-            navUserEmail.setText(user.getEmail());
+            syncUserData();
         }
     }
 
@@ -200,5 +245,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    public static Drawable loadImageFromWeb(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

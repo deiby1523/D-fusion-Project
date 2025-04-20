@@ -26,11 +26,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     // Firebase Authentication instance
     private FirebaseAuth mAuth;
+    private FirebaseUser firebaseUser;
+    private DatabaseReference dbRef;
+
     private GoogleSignInClient mGoogleSignInClient;
     // UI Components
     private EditText textEmail, textPassword;
@@ -118,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Google Sign-In placeholder
+        // Google Sign-In button event
         signInGoogleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,7 +173,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
@@ -196,12 +202,25 @@ public class LoginActivity extends AppCompatActivity {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, task -> {
             if (task.isSuccessful()) {
-                // Sign in success, update UI with the signed-in user's information
+                // Sign in success, upload user data into Firebase Realtime Database
+                firebaseUser = mAuth.getCurrentUser();
+
+                if (firebaseUser != null) {
+                    String uid = firebaseUser.getUid();
+                    String name = firebaseUser.getDisplayName(); // Name from Google
+
+                    // Use the model class instead of HashMap
+                    User user = new User(name);
+
+                    dbRef = FirebaseDatabase.getInstance().getReference("users");
+                    dbRef.child(uid).setValue(user);
+                }
+
+                // Redirect to HomeActivity
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                 finish();
             } else {
-                // If sign in fails, display a message to the user.
-                // Muestra un mensaje de error
+                // If sign in fails, display an error message to the user.
                 Snackbar.make(findViewById(R.id.signInGoogleButton), "Error en -> firebaseAuthWithGoogle()", Snackbar.LENGTH_SHORT)
                         .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
                         .setTextColor(getResources().getColor(R.color.black, getTheme()))
