@@ -19,6 +19,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvNext;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         introPref = new IntroPref(this);
 

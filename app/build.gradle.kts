@@ -62,6 +62,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.googleid)
     implementation(libs.firebase.database)
+    implementation(libs.cardview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

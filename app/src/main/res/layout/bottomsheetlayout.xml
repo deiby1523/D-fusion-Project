@@ -38,7 +38,7 @@
             android:layout_marginLeft="250dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/round_clear_24"
-            app:tint="@color/GoogleBtnText" />
+            app:tint="@color/secondaryText" />
 
     </LinearLayout>
 
@@ -55,13 +55,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_android_24"
-            app:tint="@color/GoogleBtnText" />
+            app:tint="@color/secondaryText" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Elemento 1"
-            android:textColor="@color/GoogleBtnText"
+            android:textColor="@color/secondaryText"
             android:layout_marginLeft="30dp"
             android:textSize="16sp"/>
 
@@ -79,13 +79,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_android_24"
-            app:tint="@color/GoogleBtnText"/>
+            app:tint="@color/secondaryText"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Elemento 2"
-            android:textColor="@color/GoogleBtnText"
+            android:textColor="@color/secondaryText"
             android:layout_marginLeft="30dp"
             android:textSize="16sp"/>
 
@@ -106,13 +106,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_android_24"
-            app:tint="@color/GoogleBtnText"/>
+            app:tint="@color/secondaryText"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Elemento 3"
-            android:textColor="@color/GoogleBtnText"
+            android:textColor="@color/secondaryText"
             android:layout_marginLeft="30dp"
             android:textSize="16sp"/>
 

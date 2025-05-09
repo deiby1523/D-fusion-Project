@@ -109,7 +109,7 @@
                 android:freezesText="false"
                 android:text="Continuar con google"
                 android:textAllCaps="false"
-                android:textColor="@color/GoogleBtnText"
+                android:textColor="@color/secondaryText"
                 android:textIsSelectable="false"
                 app:cornerRadius="20dp" />
 

@@ -4,7 +4,7 @@
     <color name="white">#FFFF</color>
 
     <color name="card">#242424</color>
-    <color name="GoogleBtnText">#FFFFFF</color>
+    <color name="secondaryText">#FFFFFF</color>
 
     <color name="IngresarBtnText">#FFFFFF</color>
 
@@ -15,6 +15,11 @@
     <color name="purple">#6C63FF</color>
     <color name="danger">#FF6363</color>
     <color name="success">#8DFF63</color>
+
+    <color name="note">#2F2B00</color>
+
+    <color name="fab_main">#D3C5FF</color>
+
 
     <!-- dots active color-->
     <color name="orange_one">#6C63FF</color>

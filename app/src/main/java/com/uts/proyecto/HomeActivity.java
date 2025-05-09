@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,13 +29,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
@@ -48,6 +44,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    DatabaseReference dbRef;
     // UI Components
     private FloatingActionButton fab;
     private DrawerLayout drawerLayout;
@@ -58,11 +55,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private TextView navUserEmail;
     private TextView navUserName;
     private View headerView;
-
     // Firebase
     private FirebaseAuth auth;
     private FirebaseUser user;
-    DatabaseReference dbRef;
+
+    public static Drawable loadImageFromWeb(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    // ---------------------------
+    // Inicializaciones
+    // ---------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +86,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setupBottomNavigation();
         setupFab();
     }
-
-    // ---------------------------
-    // Inicializaciones
-    // ---------------------------
 
     private void initFirebase() {
         auth = FirebaseAuth.getInstance();
@@ -99,6 +104,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         fab = findViewById(R.id.fab);
         drawerLayout = findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar);
+        syncUserData();
     }
 
     private void setupToolbarAndDrawer() {
@@ -112,11 +118,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         );
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        syncUserData();
     }
+
+    // ---------------------------
+    // Autenticación
+    // ---------------------------
 
     private void syncUserData() {
         String uid = user.getUid();
         dbRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+
+
+        if (user.getPhotoUrl() != null) {
+            Picasso.get()
+                    .load(user.getPhotoUrl())  // ← Usa Uri directamente
+                    .into(circleImageView);
+        }
 
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -125,8 +143,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 if (userData != null) {
                     navUserEmail.setText(user.getEmail());
                     navUserName.setText(userData.getName());
-
-                    Picasso.get().load(Objects.requireNonNull(user.getPhotoUrl()).toString()).into(circleImageView);
 
                 }
             }
@@ -142,7 +158,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     // ---------------------------
-    // Autenticación
+    // Navegación
     // ---------------------------
 
     private void checkUserSession() {
@@ -154,10 +170,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             syncUserData();
         }
     }
-
-    // ---------------------------
-    // Navegación
-    // ---------------------------
 
     private void setupNavigation(Bundle savedInstanceState) {
         if (navigationView != null) {
@@ -181,7 +193,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             } else if (itemId == R.id.second) {
                 replaceFragment(new SecondFragment());
             } else if (itemId == R.id.third) {
-                replaceFragment(new ThirdFragment());
+                replaceFragment(new NoteFragment());
             }
             return true;
         });
@@ -190,6 +202,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private void setupFab() {
         fab.setOnClickListener(view -> showBottomDialog());
     }
+
+    // ---------------------------
+    // Funciones auxiliares
+    // ---------------------------
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -201,10 +217,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
-
-    // ---------------------------
-    // Funciones auxiliares
-    // ---------------------------
 
     private void replaceFragment(Fragment fragment) {
         getSupportFragmentManager()
@@ -245,15 +257,5 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
-    }
-
-    public static Drawable loadImageFromWeb(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
     }
 }

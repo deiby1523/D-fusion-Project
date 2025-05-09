@@ -22,7 +22,7 @@
         android:icon="@drawable/baseline_android_24" />
     <item
         android:id="@+id/third"
-        android:title="Tercero"
-        android:icon="@drawable/baseline_android_24" />
+        android:title="Notas"
+        android:icon="@drawable/baseline_notes_24" />
 
 </menu>

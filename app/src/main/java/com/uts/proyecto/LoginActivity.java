@@ -79,8 +79,10 @@ public class LoginActivity extends AppCompatActivity {
 
         // Sign in with email and password
         signInButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                signInButton.setEnabled(false);
                 hideKeyboard(v);
 
                 String email = textEmail.getText().toString();
@@ -108,10 +110,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            signInButton.setEnabled(true);
                             // Redirect to HomeActivity on success
                             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                             finish();
                         } else {
+                            signInButton.setEnabled(true);
                             // Show error message
                             Snackbar.make(v, "Error en autenticacion -> signInWithEmailAndPassword()", Snackbar.LENGTH_SHORT)
                                     .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))

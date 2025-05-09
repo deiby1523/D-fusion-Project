@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:layout_gravity="center_vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="20dp"
+    android:layout_marginStart="20dp"
+    app:cardCornerRadius="30dp"
+    app:cardElevation="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:padding="20dp"
+        >
+
+        <TextView
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:text="Nueva Nota"
+            android:textAlignment="center"
+            android:textColor="@color/purple"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/textNoteTitle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/custom_edittext"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/inter"
+            android:hint="Titulo de la Nota"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColorHighlight="@color/cardview_dark_background" />
+
+
+        <EditText
+            android:id="@+id/textNoteContent"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_edittext"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/inter"
+            android:hint="Contenido de la Nota"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="20dp"
+            android:gravity="start"
+            android:textAlignment="viewStart"
+            android:textColorHighlight="@color/cardview_dark_background" />
+
+        <Button
+            android:id="@+id/saveNoteButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/purple"
+            android:fontFamily="@font/inter"
+            android:text="Guardar"
+            android:textColor="@color/IngresarBtnText"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:cornerRadius="20dp" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:autoSizeMaxTextSize="18sp"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeTextType="uniform"
+            android:autoText="false"
+            android:backgroundTint="@color/card"
+            android:fontFamily="@font/inter"
+            android:freezesText="false"
+            android:text="Cancelar"
+            android:textAllCaps="false"
+            android:textColor="@color/secondaryText"
+            android:textIsSelectable="false"
+            app:cornerRadius="20dp" />
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

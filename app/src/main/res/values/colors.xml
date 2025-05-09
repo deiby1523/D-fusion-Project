@@ -4,13 +4,15 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="card">#FFFFFFFF</color>
-    <color name="GoogleBtnText">#585858</color>
+    <color name="secondaryText">#585858</color>
 
     <color name="IngresarBtnText">#FFFFFF</color>
 
     <color name="lightGray">#72585858</color>
 
+    <color name="note">#41FFEB3B</color>
 
+    <color name="edit">#FFC800</color>
 
     <!-- dots inactive color-->
     <color name="dark_one">#dcdcdc</color>
@@ -19,6 +21,8 @@
     <color name="purple">#6C63FF</color>
     <color name="danger">#FF8181</color>
     <color name="success">#A0FF80</color>
+
+    <color name="fab_main">#6C63FF</color>
 
     <!-- dots active color-->
     <color name="orange_one">#6C63FF</color>

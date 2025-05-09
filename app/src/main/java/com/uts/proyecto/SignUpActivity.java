@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -19,6 +18,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -28,7 +29,10 @@ public class SignUpActivity extends AppCompatActivity {
     TextView loginButton;
 
     // Firebase Authentication
-    FirebaseAuth auth;
+    FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
+    DatabaseReference dbRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         // Initialize Firebase Auth
-        auth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         // Bind UI elements
         textName = findViewById(R.id.textName);
@@ -51,37 +55,53 @@ public class SignUpActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                signUpButton.setEnabled(false);
                 String email = String.valueOf(textEmail.getText());
                 String password = String.valueOf(textPassword.getText());
+                String confirmPassword = String.valueOf(textConfirmPassword.getText());
 
                 // Validate email input
                 if (TextUtils.isEmpty(email)) {
-                    Snackbar.make(v, "Please enter an email", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(v, "Ingresa un correo electrónico", Snackbar.LENGTH_SHORT)
                             .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
                             .setTextColor(getResources().getColor(R.color.black, getTheme()))
                             .show();
+                    signUpButton.setEnabled(true);
                     return;
                 }
 
                 // Validate password input
                 if (TextUtils.isEmpty(password)) {
-                    Snackbar.make(v, "Please enter a password", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(v, "Ingresa una contraseña", Snackbar.LENGTH_SHORT)
                             .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
                             .setTextColor(getResources().getColor(R.color.black, getTheme()))
                             .show();
+                    signUpButton.setEnabled(true);
+                    return;
+                }
+
+                if (!password.equals(confirmPassword)) {
+                    Snackbar.make(v, "Contraseñas no coinciden", Snackbar.LENGTH_SHORT)
+                            .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
+                            .setTextColor(getResources().getColor(R.color.black, getTheme()))
+                            .show();
+                    signUpButton.setEnabled(true);
                     return;
                 }
 
                 // Create user with email and password
-                auth.createUserWithEmailAndPassword(email, password)
+                mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    registerUser();
+                                    signUpButton.setEnabled(true);
                                     // Registration successful, redirect to HomeActivity
                                     startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
                                     finish();
                                 } else {
+                                    signUpButton.setEnabled(true);
                                     // Registration failed, show error message
                                     Snackbar.make(v, "Authentication failed", Snackbar.LENGTH_SHORT)
                                             .setBackgroundTint(getResources().getColor(R.color.danger, getTheme()))
@@ -97,20 +117,44 @@ public class SignUpActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loginButton.setEnabled(false);
                 // Redirect to LoginActivity
                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(intent);
+                loginButton.setEnabled(true);
                 finish();
             }
         });
     }
 
+    private void registerUser() {
+        mAuth.signInWithEmailAndPassword(textEmail.getText().toString(), textPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    firebaseUser = mAuth.getCurrentUser();
+                    if (firebaseUser != null) {
+                        String uid = firebaseUser.getUid();
+                        String name = textName.getText().toString(); // Name from user
+
+                        // Use the model class
+                        User user = new User(name);
+
+                        dbRef = FirebaseDatabase.getInstance().getReference("users");
+                        dbRef.child(uid).setValue(user);
+                    }
+                }
+            }
+        });
+
+
+    }
+
     @Override
     public void onStart() {
         super.onStart();
-
         // Check if user is already signed in
-        FirebaseUser currentUser = auth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             // User is already logged in, redirect to HomeActivity
             Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
