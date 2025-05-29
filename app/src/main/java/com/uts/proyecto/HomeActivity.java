@@ -239,7 +239,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             int id = v.getId();
             String message = "";
 
-            if (id == R.id.layoutElement1) message = "Evento para Elemento 1";
+            if (id == R.id.layoutElement1) {
+                UploadNoteDialogFragment dialogNote = new UploadNoteDialogFragment();
+                dialogNote.setOnNoteSavedListener(() -> {
+                    Toast.makeText(this, "Nota guardada correctamente", Toast.LENGTH_SHORT).show();
+                });
+                dialogNote.show(getSupportFragmentManager(), "UploadNoteDialog");
+            }
             else if (id == R.id.layoutElement2) message = "Evento para Elemento 2";
             else if (id == R.id.layoutElement3) message = "Evento para Elemento 3";
 

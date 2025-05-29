@@ -54,13 +54,13 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_android_24"
+            android:src="@drawable/baseline_notes_24"
             app:tint="@color/secondaryText" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Elemento 1"
+            android:text="Nota"
             android:textColor="@color/secondaryText"
             android:layout_marginLeft="30dp"
             android:textSize="16sp"/>

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -54,7 +55,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_anim);
         holder.itemView.startAnimation(animation);
 
-        holder.itemView.setOnLongClickListener(v -> {
+        holder.optionsBtn.setOnClickListener(v -> {
             PopupMenu popup = new PopupMenu(v.getContext(), v);
             popup.inflate(R.menu.menu_nota_item);
             popup.setOnMenuItemClickListener(item -> {
@@ -69,7 +70,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
                 return false;
             });
             popup.show();
-            return true;
         });
     }
 
@@ -80,11 +80,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     static class NoteViewHolder extends RecyclerView.ViewHolder {
         TextView titulo, contenido;
+        ImageButton optionsBtn;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.tituloNota);
             contenido = itemView.findViewById(R.id.contenidoNota);
+            optionsBtn = itemView.findViewById(R.id.optionsButtonNote);
         }
     }
 
