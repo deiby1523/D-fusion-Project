@@ -4,43 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NoteFragment">
+    tools:context=".CourseFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/FragmentTitle"
+            android:id="@+id/fragmentTitleCourses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:layout_marginHorizontal="30dp"
-            android:text="Notas"
+            android:text="Materias"
             android:textSize="30sp"
             android:textColor="@color/purple"/>
 
+        <!-- Lista de courses -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewNotas"
+            android:id="@+id/recyclerViewCourses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/FragmentTitle"
-            android:layout_marginBottom="70dp"
+            android:layout_below="@id/fragmentTitleCourses"
             android:layout_marginTop="10dp"
-            android:clipToPadding="true"
-            android:padding="16dp"/>
+            android:layout_marginBottom="70dp"
+            android:padding="16dp"
+            android:clipToPadding="true" />
 
+        <!-- Botón flotante para agregar course -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/NoteFab"
+            android:id="@+id/courseFab"
             android:layout_width="365dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="110dp"
             android:layout_marginEnd="40dp"
-            android:src="@drawable/baseline_edit_24"
+            android:contentDescription="Añadir Materia"
+            android:src="@drawable/baseline_library_add_24"
             app:maxImageSize="40dp"
             app:tint="@color/fab_main"/>
-    </RelativeLayout>
 
+    </RelativeLayout>
 </FrameLayout>

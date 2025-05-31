@@ -8,9 +8,9 @@
         android:icon="@drawable/baseline_home_24"/>
 
     <item
-        android:id="@+id/first"
-        android:title="Primero"
-        android:icon="@drawable/baseline_android_24"
+        android:id="@+id/Materias"
+        android:title="Materias"
+        android:icon="@drawable/baseline_menu_book_24"
         />
 
     <item

@@ -188,8 +188,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
                 replaceFragment(new HomeFragment());
-            } else if (itemId == R.id.first) {
-                replaceFragment(new FirstFragment());
+            } else if (itemId == R.id.Materias) {
+                replaceFragment(new CourseFragment());
             } else if (itemId == R.id.second) {
                 replaceFragment(new SecondFragment());
             } else if (itemId == R.id.third) {

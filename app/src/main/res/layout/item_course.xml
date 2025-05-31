@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_course_item"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp"
+    android:elevation="2dp"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvNombreCourse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre de la Materia"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvCodigoCurso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Código del curso"
+            android:textSize="14sp"
+            android:textColor="@color/secondaryText"
+            android:layout_marginTop="2dp" />
+
+        <TextView
+            android:id="@+id/tvSalon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salon"
+            android:textSize="14sp"
+            android:textColor="@color/secondaryText"
+            android:layout_marginTop="2dp" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btnOpcionesCourse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_more_vert_24"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Más opciones"
+        app:tint="@color/secondaryText" />
+</LinearLayout>
