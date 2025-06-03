@@ -1,6 +1,8 @@
 package com.uts.proyecto;
 
-public class Course {
+import java.io.Serializable;
+
+public class Course implements Serializable {
     private String id;
     private String name;
     private String courseCode;
@@ -8,8 +10,20 @@ public class Course {
     private String professor;
     private String professorContact;
     private Schedule schedule;
+    private String color;
 
     public Course() {} // Constructor vacío para Firebase
+
+    public Course(String id, String name, String courseCode, String classroom, String professor, String professorContact, Schedule schedule, String color) {
+        this.id = id;
+        this.name = name;
+        this.courseCode = courseCode;
+        this.classroom = classroom;
+        this.professor = professor;
+        this.professorContact = professorContact;
+        this.schedule = schedule;
+        this.color = color;
+    }
 
     public Course(String id, String name, String courseCode, String classroom, String professor, String professorContact, Schedule schedule) {
         this.id = id;
@@ -75,6 +89,14 @@ public class Course {
 
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
 

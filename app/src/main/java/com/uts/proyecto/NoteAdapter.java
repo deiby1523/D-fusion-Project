@@ -1,9 +1,5 @@
 package com.uts.proyecto;
 
-import android.app.AlertDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +10,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -47,9 +44,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        Note nota = notas.get(position);
-        holder.titulo.setText(nota.getTitle());
-        holder.contenido.setText(nota.getContent());
+        Note note = notas.get(position);
+        holder.titulo.setText(note.getTitle());
+        holder.contenido.setText(note.getContent());
 
         // Animación de entrada desde abajo (slide up)
         Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.item_anim);
@@ -61,15 +58,20 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             popup.setOnMenuItemClickListener(item -> {
                 int itemId = item.getItemId();
                 if (itemId == R.id.menu_edit) {
-                    listener.onEdit(nota);
+                    listener.onEdit(note);
                     return true;
                 } else if (itemId == R.id.menu_delete) {
-                    listener.onDelete(nota);
+                    listener.onDelete(note);
                     return true;
                 }
                 return false;
             });
             popup.show();
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+            ViewNoteDialogFragment dialog = ViewNoteDialogFragment.newInstance(note);
+            dialog.show(((FragmentActivity) v.getContext()).getSupportFragmentManager(), "view_note");
         });
     }
 

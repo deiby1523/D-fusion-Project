@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:verticalScrollbarPosition="left"
+    app:cardCornerRadius="30dp"
+    app:cardElevation="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarAlwaysDrawVerticalTrack="false"
+            android:scrollbars="none">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                android:id="@+id/viewCourseName"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                android:text="Materia"
+                android:textColor="@color/purple"
+                android:textSize="30sp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginHorizontal="20dp">
+                    <TextView
+                        android:id="@+id/labelCourseCode"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Grupo:"
+                        android:textColor="@color/purple"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:textIsSelectable="true"
+
+                        android:id="@+id/viewCourseCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Grupo"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginHorizontal="20dp">
+
+                    <TextView
+                        android:id="@+id/labelClassroom"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Salón:"
+                        android:textColor="@color/purple"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:textIsSelectable="true"
+
+                        android:id="@+id/viewClassroom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Salón" android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginHorizontal="20dp">
+
+                    <TextView
+                        android:id="@+id/labelProfessor"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Profesor:"
+                        android:textColor="@color/purple"
+                        android:textSize="20sp"  />
+
+                    <TextView
+                        android:textIsSelectable="true"
+
+                        android:id="@+id/viewProfessor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Profesor"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginHorizontal="20dp">
+
+                    <TextView
+                        android:id="@+id/labelProfessorContact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Contacto Profesor:"
+                        android:textColor="@color/purple"
+                        android:textSize="20sp"  />
+
+                    <TextView
+                        android:textIsSelectable="true"
+
+                        android:id="@+id/viewProfessorContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="20dp"
+                        android:text="Datos del profesor"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginHorizontal="20dp">
+
+                    <TextView
+                        android:id="@+id/labelSchedule"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Horario:"
+                        android:textColor="@color/purple"
+                        android:textSize="20sp"
+                        />
+
+                    <TextView
+                        android:textIsSelectable="true"
+
+                        android:id="@+id/viewSchedule"
+                        android:textSize="20sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="20dp"
+                        android:text="Horarios registrados" />
+                </LinearLayout>
+
+                <Button
+                android:id="@+id/btnClose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:backgroundTint="@color/purple"
+                android:text="Cerrar"
+                android:textColor="@android:color/white" />
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

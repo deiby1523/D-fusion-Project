@@ -1,6 +1,8 @@
 package com.uts.proyecto;
 
+import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,22 +35,31 @@ import java.util.Locale;
 public class UploadCourseDialogFragment extends DialogFragment {
 
     FirebaseUser user;
+    List<ScheduleDay> scheduleDays = new ArrayList<>();
+    ScheduleAdapter scheduleAdapter;
     private EditText textCourseName, textCourseCode, textClassroom, textProfessor, textProfessorContact;
     private Button saveButton;
     private Button cancelButton;
-
-
     private OnCourseSavedListener courseSavedListener;
+    private String selectedColor = "#FFFFFF"; // valor por defecto
 
-    List<ScheduleDay> scheduleDays = new ArrayList<>();
-
-    ScheduleAdapter scheduleAdapter;
+    private View colorRed;
+    private View colorBlue;
+    private View colorGreen;
+    private View colorYellow;
+    private View colorPink;
+    private View colorBrown;
+    private View colorPurple;
+    private View colorCyan;
+    private View colorOrange;
+    private View colorGray;
 
 
     public UploadCourseDialogFragment() {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -71,6 +82,70 @@ public class UploadCourseDialogFragment extends DialogFragment {
         textProfessorContact = view.findViewById(R.id.textProfessorContact);
         saveButton = view.findViewById(R.id.saveCourseButton);
         cancelButton = view.findViewById(R.id.cancelButton);
+
+        // Color seleccionado
+        colorRed = view.findViewById(R.id.colorRed);
+        colorBlue = view.findViewById(R.id.colorBlue);
+        colorGreen = view.findViewById(R.id.colorGreen);
+        colorYellow = view.findViewById(R.id.colorYellow);
+        colorPink = view.findViewById(R.id.colorPink);
+        colorBrown = view.findViewById(R.id.colorBrown);
+        colorPurple = view.findViewById(R.id.colorPurple);
+        colorCyan = view.findViewById(R.id.colorCyan);
+        colorOrange = view.findViewById(R.id.colorOrange);
+        colorGray = view.findViewById(R.id.colorGray);
+
+        colorRed.setOnClickListener(v -> {
+            selectedColor = "#40FF0000";
+            clearColorSelected();
+            colorRed.setBackground(getResources().getDrawable(R.drawable.custom_edittext));
+
+        });
+        colorBlue.setOnClickListener(v -> {
+            selectedColor = "#400073FF";
+            clearColorSelected();
+            colorBlue.setBackground(getResources().getDrawable(R.drawable.custom_edittext));
+        });
+        colorGreen.setOnClickListener(v -> {
+            selectedColor = "#4059FF00";
+            clearColorSelected();
+            colorGreen.setBackground(getResources().getDrawable(R.drawable.custom_edittext));
+        });
+        colorYellow.setOnClickListener(v -> {
+            selectedColor = "#40FFBF00";
+            clearColorSelected();
+            colorYellow.setBackground(getResources().getDrawable(R.drawable.custom_edittext));
+        });
+        colorPink.setOnClickListener(v -> {
+            selectedColor = "#40FF00DD";
+            clearColorSelected();
+            colorPink.setBackground(getResources().getDrawable(R.drawable.custom_edittext));
+        });
+        colorBrown.setOnClickListener(v -> {
+            selectedColor = "#406E4B25";
+            clearColorSelected();
+            colorBrown.setBackground(getResources().getDrawable(R.drawable.custom_edittext));
+        });
+        colorPurple.setOnClickListener(v -> {
+            selectedColor = "#408000FF";
+            clearColorSelected();
+            colorPurple.setBackground(getResources().getDrawable(R.drawable.custom_edittext));
+        });
+        colorCyan.setOnClickListener(v -> {
+            selectedColor = "#4000FF88";
+            clearColorSelected();
+            colorCyan.setBackground(getResources().getDrawable(R.drawable.custom_edittext));
+        });
+        colorOrange.setOnClickListener(v -> {
+            selectedColor = "#40FF5900";
+            clearColorSelected();
+            colorOrange.setBackground(getResources().getDrawable(R.drawable.custom_edittext));
+        });
+        colorGray.setOnClickListener(v -> {
+            selectedColor = "#40818181";
+            clearColorSelected();
+            colorGray.setBackground(getResources().getDrawable(R.drawable.custom_edittext));
+        });
 
         Spinner spinner = view.findViewById(R.id.spinnerDay);
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(view.getContext(),
@@ -115,6 +190,7 @@ public class UploadCourseDialogFragment extends DialogFragment {
             String professor = textProfessor.getText().toString().trim();
             String professorContact = textProfessorContact.getText().toString().trim();
             Schedule schedule = new Schedule(scheduleDays);
+            String color = selectedColor;
             // ...
 
             View rootView = requireActivity().findViewById(android.R.id.content);
@@ -149,7 +225,7 @@ public class UploadCourseDialogFragment extends DialogFragment {
                         .child(user.getUid())
                         .child(courseId);
 
-                Course courseData = new Course(courseId, name, code, classroom, professor, professorContact, schedule);
+                Course courseData = new Course(courseId, name, code, classroom, professor, professorContact, schedule, color);
 
                 ref.setValue(courseData)
                         .addOnFailureListener(e -> {
@@ -181,10 +257,6 @@ public class UploadCourseDialogFragment extends DialogFragment {
         this.courseSavedListener = listener;
     }
 
-    public interface OnCourseSavedListener {
-        void onCourseSaved();
-    }
-
     private void showTimePicker(TextView targetView) {
         Calendar now = Calendar.getInstance();
         int hour = now.get(Calendar.HOUR_OF_DAY);
@@ -194,6 +266,23 @@ public class UploadCourseDialogFragment extends DialogFragment {
             String time = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute1);
             targetView.setText(time);
         }, hour, minute, true).show();
+    }
+
+    public void clearColorSelected() {
+        colorBlue.setBackground(getResources().getDrawable(R.color.course_blue));
+        colorGreen.setBackground(getResources().getDrawable(R.color.course_green));
+        colorYellow.setBackground(getResources().getDrawable(R.color.course_yellow));
+        colorPink.setBackground(getResources().getDrawable(R.color.course_pink));
+        colorBrown.setBackground(getResources().getDrawable(R.color.course_brown));
+        colorPurple.setBackground(getResources().getDrawable(R.color.course_purple));
+        colorCyan.setBackground(getResources().getDrawable(R.color.course_cyan));
+        colorOrange.setBackground(getResources().getDrawable(R.color.course_orange));
+        colorGray.setBackground(getResources().getDrawable(R.color.course_gray));
+        colorRed.setBackground(getResources().getDrawable(R.color.course_red));
+    }
+
+    public interface OnCourseSavedListener {
+        void onCourseSaved();
     }
 
 }

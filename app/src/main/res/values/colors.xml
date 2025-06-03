@@ -12,6 +12,19 @@
 
     <color name="note">#41FFEB3B</color>
 
+    <!-- Courses -->
+    <color name="course_red">#B3FF0000</color>
+    <color name="course_blue">#B30073FF</color>
+    <color name="course_green">#B359FF00</color>
+    <color name="course_yellow">#B3FFBF00</color>
+    <color name="course_pink">#B3FF00DD</color>
+    <color name="course_brown">#B36E4B25</color>
+    <color name="course_purple">#B38000FF</color>
+    <color name="course_cyan">#B300FF88</color>
+    <color name="course_orange">#B3FF5900</color>
+    <color name="course_gray">#B3818181</color>
+
+
     <color name="edit">#FFC800</color>
 
     <!-- dots inactive color-->
