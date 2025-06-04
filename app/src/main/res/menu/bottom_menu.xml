@@ -8,7 +8,7 @@
         android:icon="@drawable/baseline_home_24"/>
 
     <item
-        android:id="@+id/Materias"
+        android:id="@+id/courses"
         android:title="Materias"
         android:icon="@drawable/baseline_menu_book_24"
         />
@@ -17,11 +17,11 @@
         android:title=""/>
 
     <item
-        android:id="@+id/second"
-        android:title="Segundo"
-        android:icon="@drawable/baseline_android_24" />
+        android:id="@+id/tasks"
+        android:title="Tareas"
+        android:icon="@drawable/baseline_task_alt_24" />
     <item
-        android:id="@+id/third"
+        android:id="@+id/notes"
         android:title="Notas"
         android:icon="@drawable/baseline_notes_24" />
 

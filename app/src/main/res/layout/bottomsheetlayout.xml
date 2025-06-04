@@ -44,7 +44,7 @@
 
 
     <LinearLayout
-        android:id="@+id/layoutElement1"
+        android:id="@+id/createNoteAction"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutElement2"
+        android:id="@+id/createTaskAction"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,13 +78,13 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_android_24"
+            android:src="@drawable/baseline_task_alt_24"
             app:tint="@color/secondaryText"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Elemento 2"
+            android:text="Tarea"
             android:textColor="@color/secondaryText"
             android:layout_marginLeft="30dp"
             android:textSize="16sp"/>
@@ -92,7 +92,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layoutElement3"
+        android:id="@+id/createCourseAction"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,13 +105,13 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_android_24"
+            android:src="@drawable/baseline_menu_book_24"
             app:tint="@color/secondaryText"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Elemento 3"
+            android:text="Materia"
             android:textColor="@color/secondaryText"
             android:layout_marginLeft="30dp"
             android:textSize="16sp"/>

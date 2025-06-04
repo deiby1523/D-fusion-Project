@@ -188,11 +188,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             int itemId = item.getItemId();
             if (itemId == R.id.home) {
                 replaceFragment(new HomeFragment());
-            } else if (itemId == R.id.Materias) {
+            } else if (itemId == R.id.courses) {
                 replaceFragment(new CourseFragment());
-            } else if (itemId == R.id.second) {
+            } else if (itemId == R.id.tasks) {
                 replaceFragment(new TaskFragment());
-            } else if (itemId == R.id.third) {
+            } else if (itemId == R.id.notes) {
                 replaceFragment(new NoteFragment());
             }
             return true;
@@ -230,24 +230,36 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottomsheetlayout);
 
-        LinearLayout element1 = dialog.findViewById(R.id.layoutElement1);
-        LinearLayout element2 = dialog.findViewById(R.id.layoutElement2);
-        LinearLayout element3 = dialog.findViewById(R.id.layoutElement3);
+        LinearLayout element1 = dialog.findViewById(R.id.createNoteAction);
+        LinearLayout element2 = dialog.findViewById(R.id.createTaskAction);
+        LinearLayout element3 = dialog.findViewById(R.id.createCourseAction);
         ImageView cancel = dialog.findViewById(R.id.cancelButton);
 
         View.OnClickListener listener = v -> {
             int id = v.getId();
             String message = "";
 
-            if (id == R.id.layoutElement1) {
+            if (id == R.id.createNoteAction) {
                 UploadNoteDialogFragment dialogNote = new UploadNoteDialogFragment();
                 dialogNote.setOnNoteSavedListener(() -> {
                     Toast.makeText(this, "Nota guardada correctamente", Toast.LENGTH_SHORT).show();
                 });
                 dialogNote.show(getSupportFragmentManager(), "UploadNoteDialog");
             }
-            else if (id == R.id.layoutElement2) message = "Evento para Elemento 2";
-            else if (id == R.id.layoutElement3) message = "Evento para Elemento 3";
+            else if (id == R.id.createTaskAction) {
+                UploadTaskDialogFragment dialogTask = new UploadTaskDialogFragment();
+                dialogTask.setOnTaskSavedListener(() -> {
+                    Toast.makeText(this, "Tarea guardada correctamente", Toast.LENGTH_SHORT).show();
+                });
+                dialogTask.show(getSupportFragmentManager(), "UploadTaskDialog");
+            }
+            else if (id == R.id.createCourseAction) {
+                UploadCourseDialogFragment dialogCourse = new UploadCourseDialogFragment();
+                dialogCourse.setOnCourseSavedListener(() -> {
+                    Toast.makeText(this, "Materia guardada correctamente", Toast.LENGTH_SHORT).show();
+                });
+                dialogCourse.show(getSupportFragmentManager(), "UploadCourseDialog");
+            }
 
             Toast.makeText(HomeActivity.this, message, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
